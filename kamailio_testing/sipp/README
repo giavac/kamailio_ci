@@ -1,0 +1,12 @@
+Build image with:
+
+docker build -t USER/sipp .
+
+Run with:
+
+docker run -i -t -v $PWD/scenarios/:/root/sipp/ --name=sipp --net=http_network USER/sipp /bin/bash
+
+In that example the container is attached to a docker network: http_network.
+
+Edit msg.xml with the IP address or name of nginx container.
+Edit run_sipp.sh with the IP address(es) of kamailio containers under test.

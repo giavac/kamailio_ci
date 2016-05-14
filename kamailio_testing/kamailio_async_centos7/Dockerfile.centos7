@@ -1,0 +1,27 @@
+# Prepare kamailio dependencies for a build on Centos 7
+FROM centos:7
+
+MAINTAINER Giacomo Vacca "giacomo.vacca@gmail.com"
+
+ENV REFRESHED_AT 2016-04-20
+
+RUN yum install -y -q \
+    make \
+    gcc \
+    bison \
+    flex \
+    libevent-devel \
+    libcurl-devel \
+    tcpdump \
+    && yum clean all
+
+# Get scripts via a volume
+RUN mkdir -p /root/scripts
+VOLUME ["/root/scripts/"]
+
+# Get source code via a volume
+RUN mkdir -p /root/kamailio
+VOLUME ["/root/kamailio/"]
+WORKDIR /root/kamailio
+
+EXPOSE 5060/UDP

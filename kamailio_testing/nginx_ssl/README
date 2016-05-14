@@ -1,0 +1,13 @@
+Build image with:
+
+docker build -t USER/nginx_ssl .
+
+Run with:
+
+docker run -d -p 8443:443 --net=http_network  --name=nginx_ssl -v $PWD/website/:/var/www/html/website/ -v $PWD/nginx/ssl/:/etc/nginx/ssl/ USER/nginx_ssl
+
+(nginx will start automatically)
+In that example the container is attached to a docker network: http_network.
+
+
+Change the HTML returned from local nginx/website files.

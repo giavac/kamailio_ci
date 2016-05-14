@@ -1,0 +1,4 @@
+- Extend to other distributions for kamailio (debian and Ubuntu)
+- Execute tests automatically when the containers with kamailio are ready
+- Integrate with Jenkins
+- 

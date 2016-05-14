@@ -1,0 +1,26 @@
+version: '2'
+services:
+
+  nginx:
+    image: $TEST_USER/nginx_ssl
+    volumes:
+      - ./nginx_ssl/website/:/var/www/html/website/
+      - ./nginx_ssl/nginx/ssl/:/etc/nginx/ssl/
+    ports:
+      - 443:443
+
+  kamailio_async:
+    image: ${TEST_IMAGE}
+    volumes:
+      - $PWD/kamailio_async_${TEST_DISTRIBUTION}/scripts:/root/scripts
+    ports:
+      - 5060/UDP:5060/UDP
+    command: /root/scripts/run.sh
+
+  sipp:
+    image: $TEST_USER/sipp
+    volumes:
+      - ./sipp/scenarios/:/root/sipp/
+    command: tail -f /dev/null
+    depends_on:
+      - kamailio_async
