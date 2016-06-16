@@ -1,8 +1,8 @@
-# Testing async_http_client kamailio module
+# Testing http_async_client kamailio module
 
-1. Build base images for `sipp`, `nginx` and all `kamailio_async_DISTRIBUTION`
+1. Build base images for `sipp`, `nginx` and all `kamailio_async_DISTRIBUTION` (see related READMEs)
 1. git checkout kamailio source code in KAMAILIO_SRC folder, at git hash GIT_REF
-1. `./prepare_built_images.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`
+1. `./prepare_built_kamailio.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`
 1. Choose image to use, with kamailio already built and installed
 1. ./kamailio_async_DISTRIBUTION/scripts/kamailio.cfg contains the configuration under test
 1. `./launch_tests.sh TEST_IMAGE [TEST_USER] [TEST_DISTRIBUTION]`
