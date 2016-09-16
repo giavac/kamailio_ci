@@ -5,7 +5,7 @@ MAINTAINER Giacomo Vacca "giacomo.vacca@gmail.com"
 ENV REFRESHED_AT 2016-01-04
 
 RUN apt-get update \
-    && apt-get -y -q install nginx \
+    && apt-get -y -q install nginx apache2-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -13,6 +13,7 @@ RUN mkdir -p /var/www/html
 
 COPY nginx/global.conf /etc/nginx/conf.d/
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/htpasswd /etc/nginx/.htpasswd
 
 RUN mkdir -p /etc/nginx/ssl
 # Expect from volume:
