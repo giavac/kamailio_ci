@@ -15,12 +15,10 @@
       Subject: Performance Test
       P-Method: GET
       P-Url: http://nginx/basic_auth
-      P-Username: kamailio
-      P-Password: hac
       Content-Length: [len]
     ]]>
   </send>
-  <recv response="200">
+  <recv response="401" optional="true">
   </recv>
   <!-- definition of the response time repartition table (unit is ms)   -->
   <ResponseTimeRepartition value="10, 20, 30, 40, 50, 100, 150, 200"/>

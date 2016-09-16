@@ -14,7 +14,7 @@
       Max-Forwards: 70
       Subject: Performance Test
       P-Method: GET
-      P-Url: http://nginx
+      P-Url: http://nginx/basic_auth
       P-Username: kamailio
       P-Password: hac_wrong_password
       Content-Length: [len]
