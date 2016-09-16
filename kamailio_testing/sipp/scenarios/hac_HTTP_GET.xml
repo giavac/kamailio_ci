@@ -13,7 +13,8 @@
       CSeq: 1 MESSAGE
       Max-Forwards: 70
       Subject: Performance Test
-      P-Url: https://nginx
+      P-Method: GET
+      P-Url: http://nginx
       Content-Length: [len]
     ]]>
   </send>
