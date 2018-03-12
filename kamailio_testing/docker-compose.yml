@@ -2,7 +2,7 @@ version: '2'
 services:
 
   nginx:
-    image: $TEST_USER/nginx_ssl
+    image: ${TEST_USER}/nginx_ssl
     volumes:
       - ./nginx_ssl/website/:/var/www/html/website/
       - ./nginx_ssl/nginx/ssl/:/etc/nginx/ssl/
@@ -14,11 +14,11 @@ services:
     volumes:
       - $PWD/kamailio_async_${TEST_DISTRIBUTION}/scripts:/root/scripts
     ports:
-      - 5060/UDP:5060/UDP
+      - "5060:5060/udp"
     command: /root/scripts/run.sh
 
   sipp:
-    image: $TEST_USER/sipp
+    image: ${TEST_USER}/sipp
     volumes:
       - ./sipp/scenarios/:/root/sipp/
     command: tail -f /dev/null
