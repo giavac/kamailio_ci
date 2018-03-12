@@ -12,8 +12,8 @@ The target of the HTTP requests can be hardcoded in the Kamailio routing script,
 
 1. Build base images for `sipp`, `nginx` and all `kamailio_async_DISTRIBUTION` (see related READMEs)
 1. git clone kamailio source code in KAMAILIO_SRC folder
-1. Run `./prepare_built_kamailio.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`. By changing the parameters, you can create various images with Kamailio already built and ready to run.
-1. Choose which `TEST_IMAGE` image to use, with Kamailio already built and installed
+1. Run `./prepare_built_kamailio.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`. By changing the parameters, you can create various images with Kamailio already built and ready to run. `GIT_REF` can be a branch name (Anything you would use in a `git checkout GIT_REF` command).
+1. Choose which `TEST_IMAGE` image to use, with Kamailio already built and installed. You can list the related images with something like `docker images | grep kamailio_async`
 1. `./kamailio_async_DISTRIBUTION/scripts/kamailio.cfg` contains the configuration under test
 1. Run `./launch_tests.sh TEST_IMAGE [TEST_USER] [TEST_DISTRIBUTION]` to launch the test against the chosen combination of git hash and distribution.
 1. You can also change the Kamailio routing script and re-launch the tests
@@ -42,10 +42,12 @@ gvacca/kamailio_async   ubuntu14            38e28100f1cc        4 months ago    
 
 ## Build base images for nginx
 
+1. `cd nginx_ssl`
 1. `docker build -t USER/nginx_ssl .`
 
 ## Build base images for sipp
 
+1. `cd sipp`
 1. `docker build -t USER/sipp .`
 
 ## Starting up the test bed
@@ -54,10 +56,10 @@ gvacca/kamailio_async   ubuntu14            38e28100f1cc        4 months ago    
 
 (`--verbose` is obviously optional)
 
-Compose will launch all the containers. For kamailio, it will launch a container on the base image and at the same time start the build (via `build_run.sh` script).
+Compose will launch all the containers. For Kamailio, it will launch a container on the base image and at the same time start the build (via `build_run.sh` script).
 The source code is accessed from outside the container, via a volume.
 
-After the build, the shell script starts kamailio.
+After the build, the shell script starts Kamailio.
 
 ## Networking
 
@@ -67,7 +69,7 @@ Compose provides a naming system that allows addressing the containers with thei
 
 So e.g. the nginx container is reachable at the name "PROJECT_nginx_1".
 
-In this dir tree PROJECT is `kamailiotesting`, as Docker assigns it by default depening on the enclosing folder name.
+In this dir tree PROJECT is `kamailiotesting`, as Docker assigns it by default depending on the enclosing folder name.
 
 ## Launch the tests
 
