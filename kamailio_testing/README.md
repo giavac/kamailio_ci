@@ -1,12 +1,22 @@
-# Testing http_async_client kamailio module
+# Testing Kamailio in various conditions with Docker
+
+The purpose of this project is to provide an example on how specific configurations of Kamailio can be tested by using a combination of tools like `sipp` and `Docker`.
+
+In particular, we show a way to test the `http_async_client` module, which by its nature requires the interaction with an HTTP server. In our case we abstracted this with a container running `nginx`, but of course a good approach for others could be to spawn a container with their specific web application.
+
+In order to generate the requests from `http_async_client` we are using `sipp` to generate SIP requests.
+The target of the HTTP requests can be hardcoded in the Kamailio routing script, but it can also be passed via custom SIP headers, as we do. In this way several scenarios can be triggered without the need to modify the routing script.
+
+
+# Testing http_async_client Kamailio module
 
 1. Build base images for `sipp`, `nginx` and all `kamailio_async_DISTRIBUTION` (see related READMEs)
-1. git checkout kamailio source code in KAMAILIO_SRC folder, at git hash GIT_REF
-1. `./prepare_built_kamailio.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`
-1. Choose image to use, with kamailio already built and installed
-1. ./kamailio_async_DISTRIBUTION/scripts/kamailio.cfg contains the configuration under test
-1. `./launch_tests.sh TEST_IMAGE [TEST_USER] [TEST_DISTRIBUTION]`
-1. Optionally change kamailio configuration or built kamailio distribution/version and re-launch tests
+1. git clone kamailio source code in KAMAILIO_SRC folder
+1. Run `./prepare_built_kamailio.sh [TEST_USER] [TEST_DISTRIBUTION] [KAMAILIO_SRC] [GIT_REF]`. By changing the parameters, you can create various images with Kamailio already built and ready to run.
+1. Choose which `TEST_IMAGE` image to use, with Kamailio already built and installed
+1. `./kamailio_async_DISTRIBUTION/scripts/kamailio.cfg` contains the configuration under test
+1. Run `./launch_tests.sh TEST_IMAGE [TEST_USER] [TEST_DISTRIBUTION]` to launch the test against the chosen combination of git hash and distribution.
+1. You can also change the Kamailio routing script and re-launch the tests
 
 ## Build base images for kamailio
 
@@ -15,7 +25,7 @@
 1. cd kamailio_async_DISTRIBUTION/
 1. `docker build -t USER/kamailio_async:DISTRIBUTION -f Dockerfile.DISTRIBUTION .`
 
-e,g,: `docker build -t gvacca/kamailio_async:centos7 -f Dockerfile.centos7 .`
+e.g.: `docker build -t gvacca/kamailio_async:centos7 -f Dockerfile.centos7 .`
 
 ### Check images available
 
@@ -61,11 +71,11 @@ In this dir tree PROJECT is `kamailiotesting`, as Docker assigns it by default d
 
 ## Launch the tests
 
-The sipp scenarios are made available through a volume, so that the image doesn't need to be rebuilt as the sipp-related code changes.
+The sipp scenarios are made available through a volume, so that the image doesn't need to be rebuilt if the scenarios change. In this way you can experiment and add/remove scenarios more easily.
 
 From inside the container, execute `./run_sipp.sh`.
 
-.e.g:
+e.g.:
 
 ```
 docker exec -ti kamailiotesting_sipp_1 /bin/bash
