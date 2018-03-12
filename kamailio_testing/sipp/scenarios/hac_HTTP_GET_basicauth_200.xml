@@ -2,7 +2,7 @@
 <!DOCTYPE scenario SYSTEM "sipp.dtd">
 <!--
 -->
-<scenario name="Basic Sipstone UAC">
+<scenario name="HTTP GET with basic authentication">
   <send retrans="500">
     <![CDATA[
       MESSAGE sip:[service]@[remote_ip]:[remote_port] SIP/2.0
