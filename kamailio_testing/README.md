@@ -7,6 +7,12 @@ In particular, we show a way to test the `http_async_client` module, which by it
 In order to generate the requests from `http_async_client` we are using `sipp` to generate SIP requests.
 The target of the HTTP requests can be hardcoded in the Kamailio routing script, but it can also be passed via custom SIP headers, as we do. In this way several scenarios can be triggered without the need to modify the routing script.
 
+This approach has 4 phases:
+1. Build the Docker base images to be used later
+1. Run a container from a Kamailio base image, build a Kamailio version inside it, then create a new image with Kamailio ready to run
+1. Run all the containers
+1. Launch the tests
+
 
 # Testing http_async_client Kamailio module
 
@@ -75,9 +81,15 @@ In this dir tree PROJECT is `kamailiotesting`, as Docker assigns it by default d
 
 The sipp scenarios are made available through a volume, so that the image doesn't need to be rebuilt if the scenarios change. In this way you can experiment and add/remove scenarios more easily.
 
-From inside the container, execute `./run_sipp.sh`.
+ To run again the tests with the containers running, execute `run_sipp.sh` again.
 
 e.g.:
+
+```
+docker exec -t kamailiotesting_sipp_1 /root/sipp/run_sipp.sh
+```
+
+You can do the same in two steps: first enter inside the container and then launch the test script, e.g.:
 
 ```
 docker exec -ti kamailiotesting_sipp_1 /bin/bash
